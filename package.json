@@ -1,7 +1,7 @@
 {
   "name": "jwbaart.dev",
   "version": "1.0.0",
-  "description": "",
+  "description": "description",
   "main": "index.js",
   "scripts": {
     "build": "copyfiles -u 1 src/*.* dist",
