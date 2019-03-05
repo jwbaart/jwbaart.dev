@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "copyfiles -u 1 src/*.* dist",
+    "clean": "rmdir-cli dist"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/jwbaart/jwbaart.dev/issues"
   },
-  "homepage": "https://github.com/jwbaart/jwbaart.dev#readme"
+  "homepage": "https://github.com/jwbaart/jwbaart.dev#readme",
+  "devDependencies": {
+    "copyfiles": "^2.1.0",
+    "rmdir-cli": "^2.0.6"
+  }
 }
