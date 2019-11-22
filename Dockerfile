@@ -1,4 +1,7 @@
 FROM alpine AS builder
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM" > /log
 WORKDIR /usr/src/app
 RUN apk add --no-cache --update nodejs nodejs-npm
 COPY package.json package-lock.json ./
