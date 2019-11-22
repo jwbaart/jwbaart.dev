@@ -10,8 +10,23 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag jwbaart.dev:$(date +%s)
+#     - name: Build the Docker image
+#       run: docker build . --file Dockerfile --tag jwbaart.dev:$(date +%s)
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:
+        version: latest
+    - name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    - name: Run Buildx
+      run: |
+          docker buildx build \
+            --platform linux/arm/v7 \
+            --output "type=image,push=false" \
+            --tag jwbaart.dev:$(date +%s) \
+            --tag jwbaart.dev:arm \
+            --file Dockerfile .
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
