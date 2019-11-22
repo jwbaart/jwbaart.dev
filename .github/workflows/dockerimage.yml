@@ -26,15 +26,18 @@ jobs:
             --output "type=image,push=false" \
             --tag jwbaart.dev:$(date +%s) \
             --file Dockerfile .
-#     - name: Docker login
-#       run: echo 'docker login --username $DOCKER_USERNAME -p $DOCKER_PASSWORD'
-#     - name: Docker push
-#       run: echo 'docker push jwbaart/jwbaart.dev'
-    - name: Docker login and push
-      run: |
-        docker login --username ${{secrets.DOCKER_USERNAME}}
-        ${{secrets.DOCKER_ACCESS_TOKEN}}
-        docker push jwbaart/jwbaart.dev
+#     - name: Docker login and push
+#       run: echo ${{ secrets.DOCKER_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+    - name: Login to DockerHub Registry
+      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+    - name: Push the Docker image to the registry
+      run: docker push jwbaart
+#       run: docker push myimage:tag
+
+#       run: |
+#         docker login --username ${{secrets.DOCKER_USERNAME}}
+#         ${{secrets.DOCKER_ACCESS_TOKEN}}
+#         docker push jwbaart/jwbaart.dev
 
 #     This also builds container, should only publish
 #     - name: Publish to Registry
