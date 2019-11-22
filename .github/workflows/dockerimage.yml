@@ -26,10 +26,16 @@ jobs:
             --output "type=image,push=false" \
             --tag jwbaart.dev:$(date +%s) \
             --file Dockerfile .
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        name: jwbaart/jwbaart.dev
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Docker login
+      run: echo 'docker login --username $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+    - name: Docker push
+      run: echo 'Docker push jwbaart/jwbaart.dev'
+
+#     This also builds container, should only publish
+#     - name: Publish to Registry
+#       uses: elgohr/Publish-Docker-Github-Action@master
+#       with:
+#         name: jwbaart/jwbaart.dev
+#         username: ${{ secrets.DOCKER_USERNAME }}
+#         password: ${{ secrets.DOCKER_PASSWORD }}
 
