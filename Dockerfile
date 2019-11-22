@@ -1,18 +1,15 @@
-FROM node:12.0-slim as builder
-
-ARG NODE_ENV=development
-ENV NODE_ENV=${NODE_ENV}
-
-COPY package*.json ./
+FROM alpine AS builder
+WORKDIR /usr/src/app
+RUN apk add --no-cache --update nodejs nodejs-npm
+COPY package.json package-lock.json ./
 RUN npm install
 
-FROM node:12.0-slim
-
+FROM alpine
 WORKDIR /usr/src/app
-COPY --from=builder node_modules node_modules
-
+RUN apk add --no-cache --update nodejs
+COPY --from=builder /usr/src/app/node_modules ./node_modules
 COPY . .
+EXPOSE 8080
+CMD [ "node", "express.js" ]
 
-RUN npm run build
-
-CMD [ "npm", "start" ]
+# docker run -p 8080:8080 jwbaart.dev
