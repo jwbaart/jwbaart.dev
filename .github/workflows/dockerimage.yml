@@ -32,7 +32,8 @@ jobs:
 #       run: echo 'docker push jwbaart/jwbaart.dev'
     - name: Docker login and push
       run: |
-        docker login --username ${{secrets.DOCKER_USERNAME}} --password ${{secrets.DOCKER_PASSWORD}}
+        docker login --username ${{secrets.DOCKER_USERNAME}}
+        ${{secrets.DOCKER_ACCESS_TOKEN}}
         docker push jwbaart/jwbaart.dev
 
 #     This also builds container, should only publish
