@@ -24,7 +24,7 @@ jobs:
           docker buildx build \
             --platform linux/arm/v7 \
             --output "type=image,push=false" \
-            --tag jwbaart.dev:$(date +%s),jwbaart.dev:arm \
+            --tag jwbaart.dev:$(date +%s) \
             --tag jwbaart.dev:arm \             
             --file Dockerfile .
     - name: Publish to Registry
